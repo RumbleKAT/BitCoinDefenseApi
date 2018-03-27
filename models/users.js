@@ -14,6 +14,9 @@ var userSchema = new schema(
     player : {
       coin : Number,
       score : Number,
+      product : [
+        //after deal, will stack
+      ]
     }
   },
   {

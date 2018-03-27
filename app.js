@@ -1,9 +1,9 @@
-var express = require('express');
+const express = require('express');
 var app = express();
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var path = require('path');
-var db = mongoose.connection;
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const path = require('path');
+const db = mongoose.connection;
 
 //Connect to mongodb
 db.on('error',console.error);
@@ -15,6 +15,7 @@ mongoose.connect("mongodb://localhost/bd");
 
 var user = require('./models/users');
 var tower = require('./models/tower');
+var product = require('./models/product');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -25,7 +26,7 @@ app.use(function (req, res , next){
    next();
 });
 
-var port = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
 //using user
 
@@ -35,7 +36,7 @@ var transaction = require("./routes/transaction")(app,user);
 
 //using tower
 var _tower = require("./routes/tower")(app,tower);
-
+var shop = require("./routes/shop")(app,product);
 
 var server = app.listen(port, function(){
     console.log("Server has started on port " + port);

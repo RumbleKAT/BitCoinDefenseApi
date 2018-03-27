@@ -1,0 +1,23 @@
+var mongoose = require('mongoose');
+var schema = mongoose.Schema;
+const connection = mongoose.createConnection("mongodb://localhost/bd");
+
+var productSchema = new schema(
+    {   //detail data of productSchema
+        index : Number, //product index
+        maker_id : Number,
+        tower_id : Number,
+        title : String,
+        price : Number,
+        content : {
+
+        } //detailed content
+    },
+    {
+        versionKey: false,
+        toObject : { virtual : true }
+    }
+)
+
+
+module.exports = mongoose.model("products", productSchema);
