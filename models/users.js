@@ -10,7 +10,11 @@ var userSchema = new schema(
   {
     name: String,
     password: String,
-    email: String
+    email: String,
+    player : {
+      coin : Number,
+      score : Number,
+    }
   },
   {
     versionKey: false,
@@ -25,29 +29,15 @@ var passwordRegexErrorMessage =
 userSchema.path('password').validate(function(v){
     var user = this;
     //create new
+    /*
     if(user.isNew){
-        /*
-        if(!user.passwordConfirmation){
-            user.invalidate('passwordConfirmation','Password Confirmation is required!');
-        }*/
         if(!passwordRegex.test(user.password)){
             user.invalidate('password', passwordRegexErrorMessage)
         }
     }
-
-     // update user
-  if(!user.isNew){
-    if(!user.currentPassword){
-      user.invalidate('currentPassword', 'Current Password is required!');
-    }
-    if(user.currentPassword && !bcrypt.compareSync(user.currentPassword, user.originalPassword)){
-      user.invalidate('currentPassword', 'Current Password is invalid!');
-    }
-    if(user.newPassword && !passwordRegex.test(user.newPassword)){
-      user.invalidate('newPassword', passwordRegexErrorMessage);
-    }
-  }
+    */
 });
+
 
 userSchema.pre('save' , function(next){
     var user = this;
@@ -66,4 +56,4 @@ userSchema.methods.authenticate = function(password){
 
 
 userSchema.plugin(autoIncrement.plugin,'Users');
-module.exports = mongoose.model("Users", userSchema);
+module.exports = mongoose.model("Users", userSchema); //Users model을 사용 
