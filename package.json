@@ -23,8 +23,11 @@
   "homepage": "https://github.com/RumbleKAT/BitCoinDefenseApi#readme",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
     "express": "^4.16.3",
+    "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.12",
-    "mongoose-auto-increment": "^5.0.1"
+    "mongoose-auto-increment": "^5.0.1",
+    "path": "^0.12.7"
   }
 }
