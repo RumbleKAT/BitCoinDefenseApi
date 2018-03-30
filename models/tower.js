@@ -1,8 +1,10 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
 //var autoIncrement = require('mongoose-auto-increment');
-const connection = mongoose.createConnection("mongodb://localhost/bd");
-
+//const connection = mongoose.createConnection("mongodb://localhost/bd");
+const connection = mongoose.createConnection(
+  "mongodb://rumblekat:ruki9179@ds123799.mlab.com:23799/bd"
+);
 //autoIncrement.initialize(connection);
 
 var towerSchema = new schema(

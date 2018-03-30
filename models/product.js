@@ -1,6 +1,9 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
-const connection = mongoose.createConnection("mongodb://localhost/bd");
+//const connection = mongoose.createConnection("mongodb://localhost/bd");
+const connection = mongoose.createConnection(
+  "mongodb://rumblekat:ruki9179@ds123799.mlab.com:23799/bd"
+);
 
 var productSchema = new schema(
     {   //detail data of productSchema

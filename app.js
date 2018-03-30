@@ -11,8 +11,9 @@ db.once('open',function(){
     console.log("connected to mongod server!");
 });
 
-mongoose.connect("mongodb://localhost/bd");
+mongoose.connect("mongodb://rumblekat:ruki9179@ds123799.mlab.com:23799/bd");
 
+//"mongodb://localhost/bd"
 var user = require('./models/users');
 var tower = require('./models/tower');
 var product = require('./models/product');

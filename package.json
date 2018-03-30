@@ -1,0 +1,28 @@
+{
+  "name": "bitcoindefenseapi",
+  "version": "1.0.0",
+  "description": "http restful api in the heroku",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RumbleKAT/BitCoinDefenseApi.git"
+  },
+  "keywords": [
+    "restapi",
+    "jwt",
+    "mongoose"
+  ],
+  "author": "songmyungjin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RumbleKAT/BitCoinDefenseApi/issues"
+  },
+  "homepage": "https://github.com/RumbleKAT/BitCoinDefenseApi#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "mongoose": "^5.0.12"
+  }
+}

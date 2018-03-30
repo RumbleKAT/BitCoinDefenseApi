@@ -2,8 +2,10 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
-var connection = mongoose.createConnection("mongodb://localhost/bd");
-
+//const connection = mongoose.createConnection("mongodb://localhost/bd");
+const connection = mongoose.createConnection(
+  "mongodb://rumblekat:ruki9179@ds123799.mlab.com:23799/bd"
+);
 autoIncrement.initialize(connection);
 
 var userSchema = new schema(
@@ -15,7 +17,7 @@ var userSchema = new schema(
       coin : Number,
       score : Number,
       product : [
-        //after deal, will stack
+        //after deal, will stack product index
       ]
     }
   },

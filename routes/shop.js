@@ -38,7 +38,7 @@ module.exports = function(app,product){
         });
     });
 
-    //modified product 
+    //modified product
     app.put('/api/product/',function(req,res){
         //index and _maker id 만든 사람만 수정이 가능함
         product.find({ $eq: [{ index: req.body.index }, { maker_id : req.body._id }]}, function(err, _user){
