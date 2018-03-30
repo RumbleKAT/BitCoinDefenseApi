@@ -2,6 +2,10 @@ var utils = require('../utils');
 
 module.exports = function (app , user)
 {
+    app.get('/',function(req,res){
+        res.end("hello!");
+    });
+
     app.get('/api/users',function(req,res){
         user.find(function(err, users){
             if(err) return res.status(500).send({ error : 'database failure' });
