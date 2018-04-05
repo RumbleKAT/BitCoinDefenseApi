@@ -23,6 +23,9 @@ var towerSchema = new schema(
         dist : Number,
         grade : Number,
         id : Number,
+        color: String,
+        hhm : Number,
+        bm : Number,
     }, //index is auto increment
     {
         versionKey: false,
