@@ -35,4 +35,4 @@ var towerSchema = new schema(
 
 
 //towerSchema.plugin(autoIncrement.plugin,'towers');
-module.exports = mongoose.model('towers',towerSchema);
+module.exports = mongoose.model('tower',towerSchema);
