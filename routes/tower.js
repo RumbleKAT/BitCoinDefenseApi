@@ -2,10 +2,17 @@ var utils = require("../utils");
 
 module.exports = function(app, tower){
 
+    app.get('/api/towers',function (req,res) {
+        tower.find(function (err,user){
+            if (err) return res.status(500).send({ error: err });
+            res.json(user);
+        })
+    })
+
     app.get('/api/tower',function(req,res){
         tower.findOne({ id : req.query.id },function(err,user){
             if (err) return res.status(500).send({ error: err });
-            res.json(tower);
+            res.json(user);
         });
     });
 
