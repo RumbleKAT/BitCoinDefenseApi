@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
 const db = mongoose.connection;
+const check = require('./routes/nullCheck');
 
 //Connect to mongodb
 db.on('error',console.error);
@@ -41,4 +42,9 @@ var shop = require("./routes/shop")(app,product);
 
 var server = app.listen(port, function(){
     console.log("Server has started on port " + port);
+    var obj = {
+        "id" : 0,
+        "name" : "sss"
+    }
+    check.nullCheck(obj);
 });
