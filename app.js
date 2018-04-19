@@ -46,5 +46,5 @@ var server = app.listen(port, function(){
         "id" : 0,
         "name" : "sss"
     }
-    check.nullCheck(obj);
+    //check.nullCheck(obj);
 });

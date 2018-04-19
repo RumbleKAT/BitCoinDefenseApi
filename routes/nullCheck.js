@@ -1,7 +1,12 @@
 var nullCheck = function(obj){
-    console.log(obj);
-    console.log(Object.keys(obj).length);
-    //return 0;
+
+    if(Object.keys(obj).length == 0){
+        console.log("This obj is null");
+        return false
+    }else{
+        console.log("This obj has value");
+        return true
+    }
 }
 
 module.exports = {
