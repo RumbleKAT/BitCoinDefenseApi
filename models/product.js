@@ -11,6 +11,7 @@ var productSchema = new schema(
         maker_id : Number,
         tower_id : Number,
         title : String,
+        description : String,
         price : Number,
         content : {
 
