@@ -8,29 +8,28 @@ const connection = mongoose.createConnection(
 //autoIncrement.initialize(connection);
 
 var towerSchema = new schema(
-    {
-        name : String,
-        face: Number,
-        weapon : Number,
-        cloth : Number,
-        head : Number,
-        hm : Number,
-        aura : Number ,
-        bullet : Number,
-        attack : Number,
-        ats : Number,
-        target : Number,
-        dist : Number,
-        grade : Number,
-        id : Number,
-        color: String,
-        hhm : Number,
-        bm : Number,
-    }, //index is auto increment
-    {
-        versionKey: false,
-        toObject : { virtual : true }
-    }
+  {
+    ID: Number,
+    Face: Number,
+    weapon: Number,
+    Cloth: Number,
+    Hair: Number,
+    HairMtr: Number,
+    Aura: Number,
+    Bullet: Number,
+    Striking: Number,
+    Speed: Number,
+    TargetCount: Number,
+    Downrange: Number,
+    Grade: Number,
+    HairColor: Number,
+    BulletMtr: Number,
+    maker_id: Number
+  }, //index is auto increment
+  {
+    versionKey: false,
+    toObject: { virtual: true }
+  }
 );
 
 

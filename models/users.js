@@ -14,11 +14,7 @@ var userSchema = new schema(
     password: String,
     email: String,
     player : {
-      coin : Number,
-      score : Number,
-      product : [
-        //after deal, will stack product index
-      ]
+      coin : Number
     }
   },
   {

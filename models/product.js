@@ -9,10 +9,8 @@ var productSchema = new schema(
     {   //detail data of productSchema
         index : Number, //product index
         maker_id : Number,
-        tower_id : Number,
         title : String,
         description : String,
-        price : Number,
         content : {
 
         } //detailed content
