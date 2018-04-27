@@ -19,7 +19,7 @@ module.exports = function (app , user)
           if (!user) return res
               .status(404)
               .json({ error: "user not found" });
-          res.json(utils.successTrue(user));
+          res.json(user);
         });
     });
 
