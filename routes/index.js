@@ -14,7 +14,7 @@ module.exports = function (app , user)
     });
     //check user's detail data
     app.get('/api/user', function(req,res){
-        user.findOne({ name: req.query.name , password: req.query.password}, function(err, user) {
+        user.findOne({ name: req.query.name }, function(err, user) {
           if (err) return res.status(500).json({ error: err });
           if (!user) return res
               .status(404)

@@ -11,8 +11,8 @@ module.exports = function(app,product){
     });
 
     //specific product in the device
-    app.get('/api/product/:title',function(req,res){
-        product.findOne({ title: req.params.title },function(err,data){
+    app.get('/api/product',function(req,res){
+        product.findOne({ title: req.query.title },function(err,data){
             if (err) return res.status(500).json({ error: err });
             return res.json({ result : data });
         });
@@ -22,7 +22,6 @@ module.exports = function(app,product){
     app.post('/api/product/',function(req,res){
         var _product = new product();
         _product.maker_id = req.body.maker_id;
-        _product.tower_id = req.body.tower_id;
         _product.title = req.body.title;
         _product.price = req.body.price;
         _product.content = req.body.content;
@@ -41,7 +40,7 @@ module.exports = function(app,product){
     //modified product
     app.put('/api/product/',function(req,res){
         //index and _maker id 만든 사람만 수정이 가능함
-        product.find({ $eq: [{ index: req.body.index }, { maker_id : req.body._id }]}, function(err, _user){
+        product.find({ $eq: [{ title: req.body.title }, { maker_id : req.body._id }]}, function(err, _user){
             if(err) return res.json({ failed : "you don't have auth" });
 
             product.maker_id = req.body.maker_id;
@@ -57,9 +56,9 @@ module.exports = function(app,product){
         });
 
     })
-
+    //수정 필요!
     app.delete("/api/product/:id", function(req, res) {
-      product.remove({ id: req.params.id }, function(err, output) {
+      product.remove({ id: req.query.id }, function(err, output) {
         if (err) return res.status(500).json({ error: "database failure" });
         res.json(err || !product ? utils.successFalse(err) : utils.successTrue(product));
       });

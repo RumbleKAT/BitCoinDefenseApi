@@ -1,15 +1,13 @@
 var mongoose = require('mongoose');
 var schema = mongoose.Schema;
-//var autoIncrement = require('mongoose-auto-increment');
+var autoIncrement = require('mongoose-auto-increment');
 //const connection = mongoose.createConnection("mongodb://localhost/bd");
 const connection = mongoose.createConnection(
   "mongodb://rumblekat:ruki9179@ds123799.mlab.com:23799/bd"
 );
 //autoIncrement.initialize(connection);
 
-var towerSchema = new schema(
-  {
-    ID: Number,
+/*
     Face: Number,
     weapon: Number,
     Cloth: Number,
@@ -25,6 +23,10 @@ var towerSchema = new schema(
     HairColor: Number,
     BulletMtr: Number,
     maker_id: Number
+*/
+
+var towerSchema = new schema({
+    fulldata : String
   }, //index is auto increment
   {
     versionKey: false,
@@ -33,5 +35,5 @@ var towerSchema = new schema(
 );
 
 
-//towerSchema.plugin(autoIncrement.plugin,'towers');
-module.exports = mongoose.model('tower',towerSchema);
+towerSchema.plugin(autoIncrement.plugin,'towers');
+module.exports = mongoose.model('towers',towerSchema);

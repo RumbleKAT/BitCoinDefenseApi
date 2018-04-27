@@ -10,7 +10,7 @@ module.exports = function(app, tower){
     })
 
     app.get('/api/tower',function(req,res){
-        tower.findOne({ id : req.query.id },function(err,user){
+        tower.findOne({ _id : req.query._id },function(err,user){
             if (err) return res.status(500).send({ error: err });
             res.json(user);
         });
@@ -18,7 +18,7 @@ module.exports = function(app, tower){
 
     app.post('/api/tower',function(req,res){
         var _tower = new tower();
-        _tower = req.body;
+        _tower.fulldata = req.body.fulldata;
 
        tower.find(function(err, tower) {
         if (err) return res.status(500).send({ error: "database failure" });
