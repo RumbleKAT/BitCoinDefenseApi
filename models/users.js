@@ -57,4 +57,4 @@ userSchema.methods.authenticate = function(password){
 
 
 userSchema.plugin(autoIncrement.plugin,'Users');
-module.exports = mongoose.model("Users", userSchema); //Users model을 사용 
+module.exports = mongoose.model("Users", userSchema); //Users model을 사용

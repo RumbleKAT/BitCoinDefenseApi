@@ -10,10 +10,7 @@ var productSchema = new schema(
         index : Number, //product index
         maker_id : Number,
         title : String,
-        description : String,
-        content : {
-
-        } //detailed content
+        description : String
     },
     {
         versionKey: false,

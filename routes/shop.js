@@ -23,8 +23,9 @@ module.exports = function(app,product){
         var _product = new product();
         _product.maker_id = req.body.maker_id;
         _product.title = req.body.title;
+        _product.description = req.body.description;
         _product.price = req.body.price;
-        _product.content = req.body.content;
+        _product.customMap = req.body.customMap;
 
         product.find(function(err, product) {
         if (err) return res.status(500).send({ error: "database failure" });
@@ -44,10 +45,10 @@ module.exports = function(app,product){
             if(err) return res.json({ failed : "you don't have auth" });
 
             product.maker_id = req.body.maker_id;
-            product.tower_id = req.body.tower_id;
             product.title = req.body.title;
+            product.description = req.body.description;
             product.price = req.body.price;
-            product.content = req.body.content;
+            product.customMap = req.body.customMap;
 
             product.save(function(err){
                 if (err) res.status(500).json(utils.successFalse(err));

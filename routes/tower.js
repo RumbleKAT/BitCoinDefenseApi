@@ -18,7 +18,8 @@ module.exports = function(app, tower){
 
     app.post('/api/tower',function(req,res){
         var _tower = new tower();
-        _tower.fulldata = req.body.fulldata;
+
+        _tower.fullData = req.body.fullData;
 
        tower.find(function(err, tower) {
         if (err) return res.status(500).send({ error: "database failure" });
@@ -31,6 +32,7 @@ module.exports = function(app, tower){
              res.json(err || !_tower ? utils.successFalse(err) : utils.successTrue(_tower));
             });
         });
+        
     });
 
     app.put('/api/tower/:id',function(req,res){

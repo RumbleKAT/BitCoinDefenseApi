@@ -5,7 +5,7 @@ var autoIncrement = require('mongoose-auto-increment');
 const connection = mongoose.createConnection(
   "mongodb://rumblekat:ruki9179@ds123799.mlab.com:23799/bd"
 );
-//autoIncrement.initialize(connection);
+autoIncrement.initialize(connection);
 
 /*
     Face: Number,
@@ -25,8 +25,9 @@ const connection = mongoose.createConnection(
     maker_id: Number
 */
 
-var towerSchema = new schema({
-    fulldata : String
+var towerSchema = new schema(
+  {
+    fullData: String
   }, //index is auto increment
   {
     versionKey: false,
