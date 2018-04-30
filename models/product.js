@@ -7,10 +7,13 @@ const connection = mongoose.createConnection(
 
 var productSchema = new schema(
     {   //detail data of productSchema
-        index : Number, //product index
+        id : Number, //product index
         maker_id : Number,
         title : String,
-        description : String
+        description : String,
+        customMap : {
+            
+        }
     },
     {
         versionKey: false,

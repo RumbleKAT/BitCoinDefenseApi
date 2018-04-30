@@ -27,7 +27,8 @@ autoIncrement.initialize(connection);
 
 var towerSchema = new schema(
   {
-    fullData: String
+    fullData: String,
+    id : Number
   }, //index is auto increment
   {
     versionKey: false,

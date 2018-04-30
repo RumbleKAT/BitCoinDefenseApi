@@ -23,7 +23,7 @@ module.exports = function(app, tower){
 
        tower.find(function(err, tower) {
         if (err) return res.status(500).send({ error: "database failure" });
-            _tower.index = tower.length;
+            _tower.id = tower.length;
 
             _tower.save(function(err) {
             if (err) {
@@ -32,7 +32,6 @@ module.exports = function(app, tower){
              res.json(err || !_tower ? utils.successFalse(err) : utils.successTrue(_tower));
             });
         });
-        
     });
 
     app.put('/api/tower/:id',function(req,res){

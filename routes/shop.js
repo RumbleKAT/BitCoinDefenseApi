@@ -29,7 +29,7 @@ module.exports = function(app,product){
 
         product.find(function(err, product) {
         if (err) return res.status(500).send({ error: "database failure" });
-            _product.index = product.length;
+            _product.id = product.length;
 
             _product.save(function(err) {
             if (err) return res.status(500).send({ error: err });
@@ -41,7 +41,7 @@ module.exports = function(app,product){
     //modified product
     app.put('/api/product/',function(req,res){
         //index and _maker id 만든 사람만 수정이 가능함
-        product.find({ $eq: [{ title: req.body.title }, { maker_id : req.body._id }]}, function(err, _user){
+        product.find({ $eq: [{ title: req.body.title }, { maker_id : req.body.maker_id }]}, function(err, _user){
             if(err) return res.json({ failed : "you don't have auth" });
 
             product.maker_id = req.body.maker_id;
