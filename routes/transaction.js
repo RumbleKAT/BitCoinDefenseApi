@@ -6,7 +6,7 @@ module.exports = function(app, user){
     app.get('/api/user/coin/:_id' , function(req,res){
         user.findOne({ _id : req.params._id }, function(err,user){
             if(err) return res.status(500).json({error : err});
-            return res.json({ coin : user.player.coin});
+            return res.json({ coin : user.coin});
          });
     });
 
@@ -16,8 +16,7 @@ module.exports = function(app, user){
             if(err){
                 return res.json({error : err});
             }
-
-            if(req.body.coin) user.player.coin += req.body.coin;
+            if(req.body.coin) user.coin += req.body.coin;
 
             user.save(function(err){
                 if(err) res.status(500).json(utils.successFalse(err));
@@ -39,12 +38,12 @@ module.exports = function(app, user){
             //use callback
             if(err){
              //if target_id is not existed
-                origin = _user[0].player.coin;
+                origin = _user[0].coin;
                 origin -= coin;
 
                  //origin_id action
                 user.findOne({ _id: req.body.origin_id },function(err,data){
-                    data.player.coin = origin;
+                    data.coin = origin;
 
                     data.save(function(err){
                         if(err) res.status(500).json({error: err});
@@ -53,8 +52,8 @@ module.exports = function(app, user){
                 });
             }
             else{
-                origin = _user[0].player.coin;
-                target = _user[1].player.coin;
+                origin = _user[0].coin;
+                target = _user[1].coin;
                 const coin = req.body.coin;
 
                 origin -= coin;
@@ -62,7 +61,7 @@ module.exports = function(app, user){
 
                 //origin_id action
                 user.findOne({ _id: req.body.origin_id },function(err,data){
-                    data.player.coin = origin;
+                    data.coin = origin;
 
                     data.save(function(err){
                         if(err) res.status(500).json({error: err});
@@ -71,7 +70,7 @@ module.exports = function(app, user){
 
                 //target_id action
                 user.findOne({_id: req.body.target_id},function(err,data){
-                    data.player.coin = target;
+                    data.coin = target;
 
                     data.save(function(err){
                     if(err) res.status(500).json({error:err});

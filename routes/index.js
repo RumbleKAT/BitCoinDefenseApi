@@ -28,7 +28,7 @@ module.exports = function (app , user)
         _user.name = req.body.name;
         _user.password = req.body.password;
         _user.email = req.body.email;
-        _user.player.coin = 0; //0으로 코인 갯수 초기화
+        _user.coin = 0; //0으로 코인 갯수 초기화
 
         _user.save(function(err) {
           if (err) {
@@ -44,13 +44,12 @@ module.exports = function (app , user)
             if(err) return res.status(500).json({ error : 'database failure' });
             if(!user) return res.status(404).json({ error : 'user not found'});
 
-            if(req.body.name) user.name = req.body.name;
-            if (req.body.password) user.password = req.body.password;
-            if (req.body.email) user.email = req.body.email;
+            user.name = req.body.name;
+            user.password = req.body.password;
+            user.email = req.body.email;
 
             user.save(function(err){
                 if(err) res.status(500).json(err);
-                //res.json(utils.successTrue(user));
                 else{
                     res.status(200).json({ success : 'update success!'})
                 }

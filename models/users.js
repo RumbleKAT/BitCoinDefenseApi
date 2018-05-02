@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 var bcrypt = require('bcrypt-nodejs');
 var schema = mongoose.Schema;
 var autoIncrement = require('mongoose-auto-increment');
-//const connection = mongoose.createConnection("mongodb://localhost/bd");
 const connection = mongoose.createConnection(
   "mongodb://rumblekat:ruki9179@ds123799.mlab.com:23799/bd"
 );
@@ -13,9 +12,7 @@ var userSchema = new schema(
     name: String,
     password: String,
     email: String,
-    player : {
-      coin : Number
-    }
+    coin : Number
   },
   {
     versionKey: false,
@@ -30,13 +27,11 @@ var passwordRegexErrorMessage =
 userSchema.path('password').validate(function(v){
     var user = this;
     //create new
-    /*
     if(user.isNew){
         if(!passwordRegex.test(user.password)){
             user.invalidate('password', passwordRegexErrorMessage)
         }
     }
-    */
 });
 
 
