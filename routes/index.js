@@ -14,15 +14,62 @@ module.exports = function (app , user)
             res.json(users);
         })
     });
-    //check user's detail data
-    app.get('/api/user', function(req,res){
-        user.findOne({ $or: [{ "name": req.query.name }, { "password": req.query.password }]}, function(err, _user) {
-        if (err) return res.status(500).json({ error: err });
-        if (!_user) return res.status(404).json({ error: "user not found" });
 
-          console.log(_user);
-          res.json(_user);
+    //check user's name
+    app.get('/api/user/check',function(req , res){
+        user.findOne({ name: req.query.name })
+            .select({ name: 1 })
+            .exec(function (err, user) {
+            if (!user) {
+                return res.status(200).json({ result : "Available username!" });
+            } else {
+                return res.status(404).json({ result : "Already Existed!"});
+            }
         });
+    });
+
+    //check user's name by email
+    app.get('/api/user/check/email', function (req, res) {
+        user.findOne({ email : req.query.email})
+        .select({name : 1})
+        .exec(function(err,user){
+            if(!user){
+                return res.status(404).json(utils.successFalse(null, "No Match Data"));
+            }else{
+                return res.status(200).json({"name" : user.name});
+            }
+        });
+    });
+
+    //modify user's password
+    app.get('/api/user/pw/modify', function (req, res) {
+        user.findOne({ name: req.query.name })
+            .select({ name: 1, email: 1, _id: 1, coin: 1, password: 1 })
+            .exec(function (err, user) {
+                if (!user || user.email != req.query.email) return res.json(utils.successFalse(null, "No Match Data"));
+                else {
+                    console.log("init user's password...");
+                    let TempPW = random.getPassword();
+                    user.password = TempPW;
+                    console.log(user.password);
+
+                    user.save(function (err) {
+                        if (err) res.status(500).json(err);
+                        else {
+                            let paragraph = mail.context.context01 + TempPW + mail.context.context02;
+
+                            let obj = {
+                                to: user.email,
+                                subject: mail.context.subject,
+                                html: paragraph
+                            };
+
+                            mail.write(obj);
+                            return res.status(200).json(utils.successTrue(null));
+                        }
+                    });
+                }
+            });
     });
 
     app.post('/api/user',function(req,res){
@@ -38,39 +85,6 @@ module.exports = function (app , user)
             return res.json({ result: 0 });
           }
           res.json(err || !_user ? utils.successFalse(err) : utils.successTrue(_user));
-        });
-    });
-
-    app.get('/api/user/modify', function (req, res) {
-        //req.body.name || req.body.email
-        user.findOne({name: req.query.name})
-        .select({name : 1 , email : 1, _id : 1 , coin : 1, password : 1})
-        .exec(function(err,user){
-            if (!user || user.email != req.query.email ) return res.json(utils.successFalse(null, "No Match Data"));
-            else{
-                console.log("init user's password...");
-                let TempPW = random.getPassword();
-                user.password = TempPW;
-                console.log(user.password);
-
-                user.save(function (err) {
-                    if (err) res.status(500).json(err);
-                    else {
-                        //res.status(200).json({ success: 'update success!' })
-                        let paragraph = mail.context.context01 + TempPW + mail.context.context02;
-                        //console.log(paragraph);
-
-                        let obj = {
-                            to: user.email,
-                            subject: mail.context.subject,
-                            html: paragraph
-                        };
-
-                        mail.write(obj);
-                        return res.status(200).json(utils.successTrue(null));
-                    }
-                });
-            }
         });
     });
 

@@ -25,7 +25,7 @@ var mail = (function(){
         from : user,
         to : null,
         subject : null,
-        text : null,
+        //text : null,
         html : null
     };
 
