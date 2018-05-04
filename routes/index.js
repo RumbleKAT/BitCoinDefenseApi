@@ -1,4 +1,6 @@
 var utils = require('../utils');
+var mail = require("../mail");
+var random = require("../random");
 
 module.exports = function (app , user)
 {
@@ -14,12 +16,12 @@ module.exports = function (app , user)
     });
     //check user's detail data
     app.get('/api/user', function(req,res){
-        user.findOne({ name: req.query.name }, function(err, user) {
-          if (err) return res.status(500).json({ error: err });
-          if (!user) return res
-              .status(404)
-              .json({ error: "user not found" });
-          res.json(user);
+        user.findOne({ $or: [{ "name": req.query.name }, { "password": req.query.password }]}, function(err, _user) {
+        if (err) return res.status(500).json({ error: err });
+        if (!_user) return res.status(404).json({ error: "user not found" });
+
+          console.log(_user);
+          res.json(_user);
         });
     });
 
@@ -39,11 +41,45 @@ module.exports = function (app , user)
         });
     });
 
+    app.get('/api/user/modify', function (req, res) {
+        //req.body.name || req.body.email
+        user.findOne({name: req.query.name})
+        .select({name : 1 , email : 1, _id : 1 , coin : 1, password : 1})
+        .exec(function(err,user){
+            if (!user || user.email != req.query.email ) return res.json(utils.successFalse(null, "No Match Data"));
+            else{
+                console.log("init user's password...");
+                let TempPW = random.getPassword();
+                user.password = TempPW;
+                console.log(user.password);
+
+                user.save(function (err) {
+                    if (err) res.status(500).json(err);
+                    else {
+                        //res.status(200).json({ success: 'update success!' })
+                        let paragraph = mail.context.context01 + TempPW + mail.context.context02;
+                        //console.log(paragraph);
+
+                        let obj = {
+                            to: user.email,
+                            subject: mail.context.subject,
+                            html: paragraph
+                        };
+
+                        mail.write(obj);
+                        return res.status(200).json(utils.successTrue(null));
+                    }
+                });
+            }
+        });
+    });
+
     app.put("/api/user/:_id", function(req, res) {
         user.findOne({_id : req.params._id}, function(err,user){
             if(err) return res.status(500).json({ error : 'database failure' });
             if(!user) return res.status(404).json({ error : 'user not found'});
 
+            user._id = req.params._id;
             user.name = req.body.name;
             user.password = req.body.password;
             user.email = req.body.email;

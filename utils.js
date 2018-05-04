@@ -2,7 +2,6 @@ var jwt = require('jsonwebtoken');
 const secret = require("./secret");
 var util = {};
 
-
 util.successTrue = function(data){
     return {
         success : true,
