@@ -27,11 +27,12 @@ var passwordRegexErrorMessage =
 userSchema.path('password').validate(function(v){
     var user = this;
     //create new
+    /*
     if(user.isNew){
         if(!passwordRegex.test(user.password)){
             user.invalidate('password', passwordRegexErrorMessage)
         }
-    }
+    }*/
 });
 
 
