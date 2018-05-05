@@ -23,7 +23,7 @@ module.exports = function (app , user){
           .select({ password: 1, name: 1, email :1 ,coin: 1})
           .exec(function(err, user) {
             if (err) return res.json(utils.successFalse(err));
-            if (!user || !user.authenticate(req.query.password)) return res.json(utils.successFalse(null, "username or Password is in Valid"));
+            if (!user || !user.authenticate(req.query.password)) return res.json({ result : "username or Password is in Valid" });
             /*
                  else {
                    var payload = { _id: user.id, name: user.name };

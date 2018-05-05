@@ -5,7 +5,7 @@ var random = require("../random");
 module.exports = function (app , user)
 {
     app.get('/',function(req,res){
-        res.end("hello!");
+        res.end("Let's Defense It Yourself !");
     });
 
     app.get('/api/users',function(req,res){
@@ -15,15 +15,27 @@ module.exports = function (app , user)
         })
     });
 
+    app.get('/api/user',function(req,res){
+        user.findOne({ name: req.query.name })
+            .select({ password: 1, name: 1, email: 1, _id: 1 })
+            .exec(function (err, user) {
+                if (err) return res.json(utils.successFalse(err));
+                if (!user || !user.authenticate(req.query.password)) return res.json({ result: "username or Password is in Valid" });
+                else{
+                    res.json({ result : "Checked Your Account!" , id : user._id});
+                }
+            });
+    });
+
     //check user's name
     app.get('/api/user/check',function(req , res){
         user.findOne({ name: req.query.name })
             .select({ name: 1 })
             .exec(function (err, user) {
             if (!user) {
-                return res.status(200).json({ result : "Available username!" });
+                return res.status(200).json({ result : "Available username!" , check : true });
             } else {
-                return res.status(404).json({ result : "Already Existed!"});
+                return res.status(404).json({ result : "Already Existed!" ,  check : false });
             }
         });
     });
@@ -34,7 +46,7 @@ module.exports = function (app , user)
         .select({name : 1})
         .exec(function(err,user){
             if(!user){
-                return res.status(404).json(utils.successFalse(null, "No Match Data"));
+                return res.status(404).json({ result : "No Match Data"});
             }else{
                 return res.status(200).json({"name" : user.name});
             }
@@ -46,7 +58,7 @@ module.exports = function (app , user)
         user.findOne({ name: req.query.name })
             .select({ name: 1, email: 1, _id: 1, coin: 1, password: 1 })
             .exec(function (err, user) {
-                if (!user || user.email != req.query.email) return res.json(utils.successFalse(null, "No Match Data"));
+                if (!user || user.email != req.query.email) return res.status(404).json({ result: "No Match Data" });
                 else {
                     console.log("init user's password...");
                     let TempPW = random.getPassword();
@@ -65,7 +77,7 @@ module.exports = function (app , user)
                             };
 
                             mail.write(obj);
-                            return res.status(200).json(utils.successTrue(null));
+                            return res.status(200).json({ "result" : "Password initialized! check your email!"});
                         }
                     });
                 }
