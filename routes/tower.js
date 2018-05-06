@@ -29,7 +29,7 @@ module.exports = function(app, tower){
             if (err) {
                 return res.status(500).send({ error: err });
             }
-             res.json(err || !_tower ? utils.successFalse(err) : utils.successTrue(_tower));
+             res.json({"tower" : _tower.id });
             });
         });
     });

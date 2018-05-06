@@ -33,7 +33,8 @@ module.exports = function(app,product){
 
             _product.save(function(err) {
             if (err) return res.status(500).send({ error: err });
-                res.json(err || !_product ? utils.successFalse(err) : utils.successTrue(_product));
+                //res.json(err || !_product ? utils.successFalse(err) : utils.successTrue(_product));
+                res.json({ product: _product.id });
             });
         });
     });
