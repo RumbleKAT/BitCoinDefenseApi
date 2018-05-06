@@ -10,8 +10,7 @@ var productSchema = new schema(
         maker_id : Number,
         title : String,
         description : String,
-        customMap : {
-        }
+        customMap : String
     },
     {
         versionKey: false,
