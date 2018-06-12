@@ -28,14 +28,14 @@ app.use(function (req, res , next){
    next();
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8050;
 
 //using user
 
 var router = require("./routes/index")(app, user);
 var auth = require("./routes/auth")(app, user);
 var transaction = require("./routes/transaction")(app,user);
-
+var translate = require("./routes/translate")(app);
 //using tower
 var _tower = require("./routes/tower")(app,tower);
 var shop = require("./routes/shop")(app,product);
