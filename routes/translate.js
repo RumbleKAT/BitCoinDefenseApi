@@ -5,9 +5,8 @@ let langTranslate = "http://api.microsofttranslator.com/V2/Ajax.svc/Translate?ap
 let langDetect = "http://translator.imtranslator.net/translator/detect.asp?k=32348493&text=";
 
 module.exports = function (app) {
-    var data = encodeURIComponent(req.query.text);
-
     app.get('/translate/check', function (req, res) {
+        var data = encodeURIComponent(req.query.text);
         request(langDetect+data,function(err,response,body){
             return res.json({"result" : body });
         });
