@@ -1,8 +1,7 @@
 var nodeMailer = require('nodemailer');
-//1.q.a.z.! DefenceItYourself@gmail.com
 
 var mail = (function(){
-    let user = "DefenceItYourself@gmail.com";
+    let user = "***";
 
     var transporter = nodeMailer.createTransport({
         host: "smtp.gmail.com",
@@ -10,7 +9,7 @@ var mail = (function(){
         port: 465,
         auth: {
             user: user,
-            pass: "1.q.a.z.!"
+            pass: "***"
         }
     });
 
